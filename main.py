@@ -4,12 +4,13 @@ from PyQt6 import uic  # Импортируем uic
 from PyQt6.QtGui import QPainter, QColor
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from random import randint
+from ui import Ui_MainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
+        self.setupUi(self)  # Создаем интерфейс из ui-файла
         self.pushButton.clicked.connect(self.run)
         self.paint = False
 
@@ -19,7 +20,7 @@ class MyWidget(QMainWindow):
             qp = QPainter()
             # Начинаем процесс рисования
             qp.begin(self)
-            qp.setBrush(QColor(255, 255, 0))
+            qp.setBrush(QColor(randint(0, 255), randint(0, 255), randint(0, 255)))
             r = randint(100, 500)
             qp.drawEllipse(100, 100, r, r)
             # Завершаем рисование
